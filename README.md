@@ -1,10 +1,10 @@
-<h1 style="color:blue;">JiPLaN – Project Overview</h1>
+# JiPLaN – Project Overview
 
 ## Team Member
 - **Denis Bollo**
 
 ## About the Project
-<strong style="color:blue;">JiPLaN</strong> is a meal-planning application designed to simplify meal selection and promote healthy dietary habits. By leveraging randomization and user customization, JiPLaN solves the common dilemma of deciding what to eat. The app includes a pre-filled database of foods and allows users to add their own options. It categorizes meals into breakfast, lunch, dinner, and desserts while enabling users to track daily food expenses for better financial management.
+**JiPLaN** is a meal-planning application designed to simplify meal selection and promote healthy dietary habits. By leveraging randomization and user customization, JiPLaN solves the common dilemma of deciding what to eat. The app includes a pre-filled database of foods and allows users to add their own options. It categorizes meals into breakfast, lunch, dinner, and desserts while enabling users to track daily food expenses for better financial management.
 
 ## Learning Objectives
 - Build intuitive and responsive UI/UX designs using modern tools.
@@ -66,7 +66,40 @@
 - **Use Case**: Suggest nearby restaurants or grocery stores for meal planning.
 - **Docs**: [Google Maps API Documentation](https://developers.google.com/maps)
 
-## Challenges Already Ide
+## Challenges Already Identified
+- **Balancing database size** with prefilled and user-added data.
+- Implementing **secure user authentication** and handling sensitive data.
+- Ensuring seamless integration of **third-party APIs** with minimal latency.
+- Designing a **user-friendly and responsive UI** across devices.
+
+## Schedule of Work
+
+![Project Plan](./Capture.PNG)
+
+## API Integration Plan
+
+### Spoonacular API
+- **Endpoints**:
+  - `/recipes/random` for random meal suggestions.
+  - `/recipes/{id}/nutritionWidget.json` for nutritional details.
+
+### Plaid API
+- **Endpoints**:
+  - `/transactions` for retrieving and categorizing expenses.
+
+### Edamam API
+- **Endpoints**:
+  - `/search` for recipe suggestions.
+  - `/nutrition-details` for meal analysis.
+
+### Firebase Cloud Messaging
+- **Use Case**: Enable push notifications to remind users about meal planning.
+
+### Google Charts
+- **Use Case**: Embed dynamic charts using JavaScript API.
+
+### Google Maps API
+- **Use Case**: Use geolocation services to find nearby food options.
 
 
 
