@@ -1,4 +1,4 @@
-# JiPLaN – Project Overview
+# <span style="color:blue">JiPLaN</span> – Project Overview
 
 ## Team Member
 - **Denis Bollo**
