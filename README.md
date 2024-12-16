@@ -1,10 +1,10 @@
-# JiPLaN – Project Overview
+# <span style="color:blue">JiPLaN</span> – Project Overview
 
 ## Team Member
 - **Denis Bollo**
 
 ## About the Project
-**JiPLaN** is a meal-planning application designed to simplify meal selection and promote healthy dietary habits. By leveraging randomization and user customization, JiPLaN solves the common dilemma of deciding what to eat. The app includes a pre-filled database of foods and allows users to add their own options. It categorizes meals into breakfast, lunch, dinner, and desserts while enabling users to track daily food expenses for better financial management.
+<span style="color:blue">**JiPLaN**</span> is a meal-planning application designed to simplify meal selection and promote healthy dietary habits. By leveraging randomization and user customization, JiPLaN solves the common dilemma of deciding what to eat. The app includes a pre-filled database of foods and allows users to add their own options. It categorizes meals into breakfast, lunch, dinner, and desserts while enabling users to track daily food expenses for better financial management.
 
 ## Learning Objectives
 - Build intuitive and responsive UI/UX designs using modern tools.
@@ -93,13 +93,10 @@
   - `/nutrition-details` for meal analysis.
 
 ### Firebase Cloud Messaging
-- **Use Case**: Enable push notifications to remind users about meal planning.
+- **Use Case**: Enable push notifications to remind users about meal plannings.
 
 ### Google Charts
 - **Use Case**: Embed dynamic charts using JavaScript API.
 
 ### Google Maps API
 - **Use Case**: Use geolocation services to find nearby food options.
-
-
-
