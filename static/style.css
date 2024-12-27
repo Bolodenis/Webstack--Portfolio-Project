@@ -1,0 +1,225 @@
+/* Global Styles */
+body {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: wheat;
+    padding-top: 80px;
+}
+
+h3.display {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: black;
+    font-style: italic;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: rgb(117, 216, 117);
+}
+
+.navbar .navbar-brand {
+    color: #fff;
+}
+
+.navbar .navbar-nav .nav-link {
+    color: #fff;
+}
+
+.navbar .navbar-nav .nav-link:hover {
+    color: #dcdcdc;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.navbar-toggler-icon {
+    background-color: #fff;
+}
+
+/* Image Styles */
+.image-adjustment .my {
+    width: 30%; /* Adjust the width to 30% to make it more average */
+    max-width: 300px; /* Ensure it doesn't exceed 300px on larger screens */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 8px;
+    object-fit: cover;
+    
+}
+
+/* Overview Section */
+.container.mt-5 {
+    margin-top: 5rem;
+}
+
+.row.align-items-center {
+    display: flex;
+    justify-content: space-between;
+}
+
+.col-md-6 {
+    padding: 15px;
+}
+
+.text-light {
+    color: #f8f9fa;
+}
+
+/* Logo Text Styling */
+.navbar .navbar-brand span {
+    font-style: italic;
+    font-size: 0.8rem; /* Small size for the text under the logo */
+}
+
+/* Footer Styles */
+footer {
+    background-color: rgb(124, 219, 124);
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    color: white;
+    width: 100%; /* Ensures full width */
+    position: relative;
+    bottom: 0%;
+    
+}
+
+footer h5 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #dcdcdc;
+}
+
+footer .social-media-icons {
+    font-size: 1.5rem;
+}
+
+footer .social-media-icons i {
+    margin-right: 10px;
+}
+
+footer .container .row {
+    margin-bottom: 1.5rem;
+}
+
+footer .text-center {
+    padding: 1rem;
+}
+
+footer .text-center small {
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+/* Footer Text under Logo Styling */
+footer .my {
+    color: white; /* Ensures text under the logo in footer is white */
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 10px;
+    }
+
+    .col-md-6 {
+        margin-bottom: 2rem;
+    }
+
+    .text-light {
+        text-align: center;
+    }
+}
+footer img p{
+    color: white;
+}
+
+
+
+#add-food
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin-top: 100px;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 8px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+
+html, body {
+    height: 100%;  /* Ensure the body and html take up the full height */
+}
+
+body {
+    min-height: 100vh;  /* Ensure the body stretches to fill the viewport */
+    overflow-x: hidden;  /* Hide horizontal overflow if any */
+}
+
+
+
+
+
+
+
+

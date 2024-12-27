@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Food Schedule</title>
+{% endblock %}
+
+{% block content %}
+<div class="container-sm mt-5">
+    <h1 class="mb-4 text-center">Food Schedule</h1>
+
+    {% for category, days in schedule.items() %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="text-center text-md-start">{{ category.capitalize() }}</h3>
+            </div>
+            <div class="card-body">
+                <!-- Responsive table -->
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Food</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for day, entries in days.items() %}
+                                {% for entry in entries %}
+                                    <tr>
+                                        <td>{{ day }}</td>
+                                        <td>{{ entry.food }}</td>
+                                        <td>
+                                            <a href="{{ url_for('edit_entry', id=entry.id) }}" class="btn btn-primary btn-sm mb-1">Edit</a>
+                                            <form action="{{ url_for('delete_entry', id=entry.id) }}" method="POST" style="display:inline;">
+                                                <button type="submit" class="btn btn-danger btn-sm mb-1">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('add_entry') }}" class="btn btn-success mb-2">Add Food Entry</a>
+        <a href="{{ url_for('display') }}" class="btn btn-info mb-2">View Food Entries</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+# Virtual environments
+env
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+app2.py
+app3.py
+database.py
+database.db
+foods.db
+lchemy.py
+models.py
+planning.py
+test_database.py
+test.db
+test.py
+test2.py
+test3.py
+tutorial.db
+b.html
+

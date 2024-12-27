@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-center mt-5">Breakfast Menu for the Week</h1>
+
+<!-- Link List -->
+<div class="text-center mb-4 mt-5">
+    <a href="{{ url_for('breakfast') }}" class="btn btn-info btn-lg mx-2 text-white">Random Breakfast Menu</a>
+    <a href="{{ url_for('food_plan') }}" class="btn btn-warning btn-lg mx-2 text-white">Back to Food Selection</a>
+</div>
+
+<!-- Table -->
+<table class="table table-bordered table-hover mb-5 table-striped table-dark mt-5" style="width:95%; margin: 0 auto;">
+    <thead class="table-dark">
+        <tr>
+            <th>Day</th>
+            <th>Meal</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for day, meal in breakfast_meals.items() %}
+            <tr>
+                <td class="lead">{{ day }}</td>
+                <td class="lead">{{ meal }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
