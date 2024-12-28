@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}MEAL TRACKER{% endblock %}
+
+{% block content %}
+    <div class="container mt-6 mb-5 lead">
+        <h1 class="text-center mb-4">Meal Planner</h1>
+
+        <!-- Description Section -->
+        <p class="text-center mb-4">
+            <strong>JiPLAN: Your Personalized Meal Planning Solution</strong><br>
+            Tired of the daily stress of deciding what to cook? <strong>JiPLAN</strong> simplifies meal planning, offering you a personalized, easy-to-use platform to plan your meals effortlessly. Whether you're looking for a quick breakfast, a wholesome lunch, or a satisfying dinner, JiPLAN has you covered.
+        </p>
+        <p class="text-center mb-4">
+            <strong>Benefits:</strong><br>
+            - Save Time: No more last-minute scrambling for recipes or ingredients. JiPLAN helps you plan your week in advance, saving you time and effort.<br>
+            - Promote Healthy Eating: Focus on your health and wellness with meals that are tailored to your preferences and nutritional needs.<br>
+            - Reduce Food Waste: Plan meals ahead of time to buy only the ingredients you need, reducing food waste and saving money.
+        </p>
+
+        <!-- Links Row: Using Bootstrap's Flexbox utilities to align links side by side -->
+        <div class="d-flex justify-content-center mb-4">
+            
+            <a href="{{ url_for('breakfast') }}" class="btn btn-info mx-2 text-white">Breakfast</a>
+            <a href="{{ url_for('lunch') }}" class="btn btn-info mx-2 text-white">Lunch</a>
+            <a href="{{ url_for('dinner') }}" class="btn btn-info mx-2 text-white">Dinner</a>
+        </div>
+
+        <!-- Meal content will be here -->
+        <div class="meal-content mt-5">
+            <!-- Your specific meal content like foods list here -->
+        </div>
+    </div>
+{% endblock %}
+
