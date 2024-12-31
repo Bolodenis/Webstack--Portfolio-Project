@@ -218,6 +218,27 @@ body {
 
 
 
+.instructions-preview {
+    max-height: 100px;
+    overflow: hidden;
+    position: relative;
+}
+.ingredients-preview {
+    max-height: 100px;
+    overflow: hidden;
+    position: relative;
+}
+.full-instructions, .full-ingredients {
+    display: none;
+    }
+.read-more {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+    }
+   
+
+
 
 
 
