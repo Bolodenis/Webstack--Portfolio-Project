@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Contact Us</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Contact Us</h1>
+
+    <!-- Contact Form -->
+    <form id="contact-form" action="{{ url_for('contact') }}" method="POST" autocomplete="off">
+        <div class="mb-3">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="name" name="name" required autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Your Email</label>
+            <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <label for="message" class="form-label">Your Message</label>
+            <textarea class="form-control" id="message" name="message" rows="4" required autocomplete="off"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+
+    {% if message %}
+        <div class="alert alert-info mt-4 text-center">{{ message }}</div>
+    {% endif %}
+    
+    <!-- Contact Details Section -->
+    <div class="mt-5 mb-5">
+        <h3 class="text-center mb-4">Our Contact Information</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card border-primary shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Address</h5>
+                        <p class="card-text text-center">1234 Street Name, City, Country</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-success shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Phone Number</h5>
+                        <p class="card-text text-center">(123) 456-7890</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-info shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Email</h5>
+                        <p class="card-text text-center">contact@ourcompany.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  // Reset the form on page load
+  window.onload = function() {
+    document.getElementById('contact-form').reset();
+  }
+</script>
+
+{% endblock %}
