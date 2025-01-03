@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}My Expense Tracker{% endblock %}
+
+{% block content %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        let chartData = [];
+
+        // Function to draw the chart
+        function drawChart() {
+            const data = google.visualization.arrayToDataTable([
+                ['Category', 'Amount'], // Header row
+                ...chartData
+            ]);
+
+            const options = {
+                title: 'Expense Breakdown',
+                is3D: true,
+                width: '100%',
+                height: 400
+            };
+
+            const chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+
+        // Event listener for the form submission
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('expense-form');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const category = document.getElementById('category').value;
+                const amount = parseFloat(document.getElementById('amount').value);
+
+                if (category && !isNaN(amount)) {
+                    // Add new data to chartData
+                    chartData.push([category, amount]);
+
+                    // Clear the form inputs
+                    document.getElementById('category').value = '';
+                    document.getElementById('amount').value = '';
+
+                    // Redraw the chart with updated data
+                    drawChart();
+                } else {
+                    alert('Please provide valid category and amount');
+                }
+            });
+
+            // Clear button functionality
+            document.getElementById('clear-btn').addEventListener('click', function () {
+                // Clear form data
+                document.getElementById('category').value = '';
+                document.getElementById('amount').value = '';
+
+                // Clear chart data
+                chartData = [];
+
+                // Redraw the chart (empty)
+                drawChart();
+            });
+        });
+    </script>
+
+    <div class="container-lg mt-5">
+        <h1 class="text-center mb-4">Expense Dashboard</h1>
+
+        <!-- Form Section -->
+        <div class="card shadow-sm mb-5">
+            <div class="card-body">
+                <h5 class="card-title text-center">Add New Expense</h5>
+                <form method="POST" action="{{ url_for('dashboard') }}" class="row g-3" id="expense-form">
+                    <div class="col-md-6">
+                        <label for="category" class="form-label">Expense Category</label>
+                        <input type="text" id="category" name="category" class="form-control" placeholder="e.g., Food, Transport" required autocomplete="off"> 
+                    </div>
+                    <div class="col-md-6">
+                        <label for="amount" class="form-label">Amount</label>
+                        <input type="number" id="amount" name="amount" class="form-control" placeholder="e.g., 100" required autocomplete="off">
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">Add Expense</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Clear Button Section -->
+        <div class="text-center mb-4">
+            <button id="clear-btn" class="btn btn-danger btn-lg">Clear All</button>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-center">Expense Breakdown</h5>
+                <div id="piechart" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

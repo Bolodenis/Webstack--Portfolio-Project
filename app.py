@@ -1,13 +1,63 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-from email_service import send_email  # Import the send_email function
+"""
+Flask Web Application for Meal Planning, User Authentication, and Recipe Search.
 
+This Flask application allows users to plan meals for the week, manage their meal entries in a database, 
+search for recipes using the Spoonacular API, and track expenses. The application includes a user authentication 
+system with registration, login, password reset, and logout functionality. It also supports sending contact messages via email.
+
+Features:
+- User authentication (register, login, logout)
+- Meal planning with a database to store user meal entries
+- Recipe search via Spoonacular API
+- Contact form with email sending
+- Basic error handling and user feedback via flash messages
+
+Dependencies:
+- Flask
+- Flask-SQLAlchemy
+- Flask-Login
+- requests
+- werkzeug (for password hashing)
+- smtplib (for sending email)
+"""
+
+
+from flask import Flask, render_template, request, redirect, url_for, flash
+from email_service import send_email  
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 import random
-import food  # Ensure this contains 'meals_data'
-from model import FoodEntry, Session  # Ensure this contains the necessary database functions
+import food  
+from model import FoodEntry, Session  
 import requests
 
+# Initialize Flask app
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'
+
+# Configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///model.db'
+app.config['SECRET_KEY'] = "Bolo@3207334"
+
+# Initialize database
+db = SQLAlchemy(app)
+
+# Initialize LoginManager
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+# User model
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+
+# Load user callback
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 # Days of the week
 days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -19,7 +69,7 @@ def assign_meals():
         "lunch": [meal['name'] for meal in food.meals_data[0]['lunch']],
         "dinner": [meal['name'] for meal in food.meals_data[0]['dinner']]
     }
-    
+
     weekly_meals = {}
     for day in days_of_week:
         daily_meals = {
@@ -32,10 +82,15 @@ def assign_meals():
     return weekly_meals
 
 # Routes
+# Home page route (base page)
 @app.route("/")
 def index():
-    weekly_meals = assign_meals()
-    return render_template("base.html", weekly_meals=weekly_meals)
+    if current_user.is_authenticated:
+        weekly_meals = assign_meals()
+        return render_template("base.html", weekly_meals=weekly_meals)
+    else:
+        return redirect(url_for('login'))  # Redirect to login page if not logged in
+
 
 @app.route("/breakfast")
 def breakfast():
@@ -147,7 +202,7 @@ def get_recipe_details(recipe_id):
 
 @app.route('/search', methods=['GET'])
 def search():
-    query = request.args.get('query')  # Correct usage of Flask's request object
+    query = request.args.get('query')  
     page = int(request.args.get('page', 1))
     per_page = 3
 
@@ -170,7 +225,7 @@ def search():
                 recipe_data.append({
                     'title': recipe['title'],
                     'image': recipe['image'],
-                    'ingredients': ingredients,  # Now we are passing the ingredients
+                    'ingredients': ingredients,  
                     'nutrition': nutrition,
                     'instructions': recipe_details.get('instructions', 'No instructions available'),
                     'id': recipe['id']
@@ -194,6 +249,123 @@ def contact():
         return render_template('contact.html', message="Thank you for reaching out, we'll get back to you soon!")
 
     return render_template('contact.html', message=None)
+
+# expense tracker 
+# Store expenses as a dictionary
+expenses = {}
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
+    if request.method == 'POST':
+        # Get form data
+        category = request.form.get('category')
+        amount = request.form.get('amount')
+
+        # Validate input
+        if category and amount:
+            try:
+                amount = float(amount)  # Convert amount to a number
+                
+                # Update or add the category in the dictionary
+                if category in expenses:
+                    expenses[category] += amount
+                else:
+                    expenses[category] = amount
+
+            except ValueError:
+                pass  # Handle invalid input gracefully
+
+        return redirect(url_for('dashboard'))
+
+    # Pass expenses to the template as a list of tuples
+    return render_template('dashboard.html', expenses=expenses.items())
+
+# Login page
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))  # Redirect to homepage if already logged in
+
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        user = User.query.filter_by(username=username).first()
+        
+        if user and check_password_hash(user.password, password):
+            login_user(user)
+            return redirect(url_for('index'))  # Redirect to homepage after successful login
+        else:
+            flash('Invalid username or password', 'danger')
+            
+    return render_template("login.html")
+
+# Register page
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+
+        # Check if all required fields are provided
+        if not email:
+            flash("Email is required", "error")  # Flash an error message
+            return redirect(url_for('register'))
+
+        if not username:
+            flash("Username is required", "error")
+            return redirect(url_for('register'))
+
+        if not password:
+            flash("Password is required", "error")
+            return redirect(url_for('register'))
+
+        # Check if the email already exists in the database
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            flash("Email is already registered. Please choose another.", "error")
+            return redirect(url_for('register'))
+
+        # Now, safely hash the password
+        hashed_password = generate_password_hash(password)
+
+        # Create new user instance
+        new_user = User(username=username, email=email, password=hashed_password)
+
+        try:
+            # Attempt to add the user to the database
+            db.session.add(new_user)
+            db.session.commit()  # Commit the transaction
+            flash("Registration successful", "success")
+            return redirect(url_for('login'))  # Redirect to the login page after successful registration
+        except Exception as e:
+            # Handle any potential database errors
+            db.session.rollback()  # Rollback if there is an error
+            flash(f"An error occurred: {str(e)}", "error")
+            return redirect(url_for('register'))
+
+    return render_template('register.html')
+
+# Forgot password page
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form['email']
+        # Check if email exists, send reset link, etc.
+        flash("If your email exists in our system, you will receive a password reset link.")
+        return redirect(url_for('login'))
+    return render_template('forgot_password.html')
+
+
+
+# Logout
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("logging out")
+
+    return redirect(url_for('login'))  # Redirect to login page after logout
 
 
 if __name__ == "__main__":
