@@ -23,10 +23,17 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        .login-container img {
+            max-width: 50%;
+            height: auto;
+            display: block;
+            margin: 0 auto 20px;
+        }
+
         .login-container h2 {
             margin-bottom: 20px;
             text-align: center;
-            font-weight: 500;
+            font-weight: bold;
         }
 
         .form-group label {
@@ -61,7 +68,9 @@
 
 <body>
     <div class="login-container">
-        <h2>Login</h2>
+        <img src="/static/img/Capture.PNG" alt="JiPLAN Logo">
+        <h2>Welcome to JiPLAN</h2>
+        <p class="lead">Your number one stop food planner, Enjoy the experience!</p>
         {% if get_flashed_messages() %}
             <div class="alert alert-danger">
                 {% for message in get_flashed_messages() %}
@@ -92,4 +101,3 @@
 </body>
 
 </html>
-
