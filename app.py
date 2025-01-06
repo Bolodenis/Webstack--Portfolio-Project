@@ -115,6 +115,8 @@ def food_plan():
     return render_template("tracker.html")
 
 # Database session
+with app.app_context():
+    db.create_all()
 session = Session()
 
 DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -287,8 +289,8 @@ def login():
         return redirect(url_for('index'))  # Redirect to homepage if already logged in
 
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username")
+        password = request.form.get("password")
         user = User.query.filter_by(username=username).first()
         
         if user and check_password_hash(user.password, password):
@@ -363,10 +365,11 @@ def forgot_password():
 @login_required
 def logout():
     logout_user()
-    flash("logging out")
 
     return redirect(url_for('login'))  # Redirect to login page after logout
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+    with app.app_context():
+        db.create_all()
