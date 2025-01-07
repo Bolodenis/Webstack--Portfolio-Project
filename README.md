@@ -73,18 +73,32 @@ Ensure the following are installed:
 
 ### Steps
 - Clone the Repository:
+
+
   `git clone (https://github.com/Bolodenis/Webstack--Portfolio-Project)`
 - Navigate to the Project Directory:
+
+
   ` cd FINALE_PROJECT`
 - Install Dependencies: Install the required Python packages using pip:
+
+
   `pip install -r requirements.txt`
 - Set Up Environment Variables: Create a .env file in the root directory of the project and add the following variables:
+
+
    ` FLASK_APP=app.py
     FLASK_ENV=development
     SECRET_KEY=<your_secret_key>
     DATABASE_URL=sqlite:///model.db `
+
+
 - Run the Application: Start the Flask development server:
+
+
  ` flask run `
+
+ 
 - Access the Application: Open a browser and navigate to http://127.0.0.1:5000 to access JiPLAN.
 
 ## Contributing
@@ -123,11 +137,10 @@ Ensure the following are installed:
 
 ### Edamam API
 - **Endpoints**:
-  - `/search` for recipe suggestions.
-  - `/nutrition-details` for meal analysis.
+  - `/search` for recipe suggestions.(was to be alternative for Spoonacular API)
 
 ### Firebase Cloud Messaging
-- **Use Case**: Enable push notifications to remind users about meal plannings.
+- **Use Case**: Enable push notifications to remind users about meal plannings.(to be implemented later)
 
 ### Google Charts
 - **Use Case**: Embed dynamic charts using JavaScript API.
