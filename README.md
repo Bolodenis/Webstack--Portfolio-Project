@@ -98,7 +98,7 @@ Ensure the following are installed:
 
  ` flask run `
 
- 
+
 - Access the Application: Open a browser and navigate to http://127.0.0.1:5000 to access JiPLAN.
 
 ## Contributing
@@ -144,5 +144,9 @@ Ensure the following are installed:
 
 ### Google Charts
 - **Use Case**: Embed dynamic charts using JavaScript API.
+
+## login section
+
+![login Page](./loginpg.PNG)
 
 
